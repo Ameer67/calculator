@@ -85,9 +85,22 @@ function input() {
 
 function updateDisplay(arr){
     const display = document.getElementById('answer-container');
-    display.textContent = '';
+    display.textContent = ''; // Clear 
+
     arr.forEach(function(value) {
-        display.textContent += value;
+        if (value == '*') {
+            value = '\u00D7';
+        }
+
+        if (value == '/') {
+            value = '\u00F7';
+        }
+
+        if (value == '-') {
+            value = '\u2212';
+        }
+
+        display.textContent += value + ' ';
     });
 }
 
