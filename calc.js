@@ -40,7 +40,16 @@ function input() {
     }
 
     console.log(inputArray);
+    updateDisplay(inputArray);
     return inputArray;
+}
+
+function updateDisplay(arr){
+    const display = document.getElementById('answer-container');
+    display.textContent = '';
+    arr.forEach(function(value) {
+        display.textContent += value;
+    });
 }
 
 function doMath(...args) {
