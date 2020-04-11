@@ -7,6 +7,12 @@ function input() {
     let inputValue = event.target.value;
     console.log(inputValue);
 
+    if (inputValue == 'c') {
+        inputArray = [];
+        updateDisplay(inputArray);
+        return inputArray;
+    }
+
     function isNumber(a) {
         if (a != '/' && a != '*' && a != '-' && a != '+' && a != 'c') {
             return true;
@@ -14,6 +20,8 @@ function input() {
             return false;
         }
     }
+
+    
     
     if (inputArray.length == 0 ) {
         if (isNumber(inputValue)) {
