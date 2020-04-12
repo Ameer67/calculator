@@ -16,7 +16,7 @@ function input() {
     // Check if clear button was pressed.
     if (inputValue == 'c') {
         inputArray = [];
-        updateDisplay(inputArray);
+        updateDisplay();
         return inputArray;
     }
 
@@ -40,7 +40,7 @@ function input() {
             }
         }
 
-        updateDisplay(inputArray);
+        updateDisplay();
         return inputArray;
     }
 
@@ -79,15 +79,15 @@ function input() {
     }
 
     console.log(inputArray);
-    updateDisplay(inputArray);
+    updateDisplay();
     return inputArray;
 }
 
-function updateDisplay(arr){
+function updateDisplay(){
     const display = document.getElementById('answer-container');
     display.textContent = ''; // Clear 
 
-    arr.forEach(function(value) {
+    inputArray.forEach(function(value) {
         if (value == '*') {
             value = '\u00D7';
         }
@@ -156,6 +156,7 @@ function simplify() {
         inputArray = ['Cannot divide by zero'];
     }
 
+    updateDisplay();
     return inputArray;
 }
 
