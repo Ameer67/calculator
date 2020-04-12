@@ -159,6 +159,7 @@ function simplify() {
     return inputArray;
 }
 
+
 function operationToFind(operation) {
     for (let i = 0; i < inputArray.length; i++) {
         let newArr = [];
