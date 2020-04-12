@@ -144,15 +144,45 @@ buttons.forEach(function(btn) {
     btn.addEventListener('click', input)
 })
 
-function findOperation(arr) {
-    arr.forEach()
+function simplify() {    
+    while (inputArray.length > 1) {
+        operationToFind('*');
+        operationToFind('/');
+        operationToFind('+');
+        operationToFind('-');
+    }
+
+    if (inputArray[0] === Infinity) {
+        inputArray = ['Cannot divide by zero'];
+    }
+
+    return inputArray;
 }
 
-// function doMath(operation, a, b) {
-//     if (operation )
-// }
+function operationToFind(operation) {
+    for (let i = 0; i < inputArray.length; i++) {
+        let newArr = [];
+        if (inputArray[i] === operation) {
+            newArr.push(parseFloat(inputArray.splice(i - 1, 1)));
+            newArr.push(parseFloat(inputArray.splice(i, 1)));
+            inputArray.splice(i - 1, 1);
+    
+            if (operation === '*') {
+                inputArray.splice(i - 1, 0, multiply(newArr));
+            }
 
+            if (operation === '/') {
+                inputArray.splice(i - 1, 0, divide(newArr));
+            }
 
-// M D A S
-// 3 + 5 * 4 / 2 - 1
-//subtract(add(divide(multiply())))
+            if (operation === '+') {
+                inputArray.splice(i - 1, 0, add(newArr));
+            }
+
+            if (operation === '-') {
+                inputArray.splice(i - 1, 0, subtract(newArr));
+            }
+            
+        }
+    }
+}
