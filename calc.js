@@ -104,29 +104,55 @@ function updateDisplay(arr){
     });
 }
 
-function doMath(...args) {
-    args = args.reduce(function(acc, current) {
-        return acc + current;
-    })
-    return args;
+function add(arr, i = 0) {
+    let a = arr[i];
+    if (i >= arr.length - 1) {
+        return a;
+    }
+
+    return a + add(arr, ++i);
 }
 
-function add(a, b) {
-    return a + b;
+function subtract(arr, i = arr.length) {
+    let a = arr[i - 1];
+    if (i == 1) {
+        return a;
+    }
+
+    return subtract(arr, --i) - a;
 }
 
-function subtract(a, b) {
-    return a - b;
+function multiply(arr, i = 0) {
+    let a = arr[i];
+    if (i >= arr.length - 1) {
+        return a;
+    }
+
+    return a * multiply(arr, ++i);
 }
 
-function multiply(a, b) {
-    return a * b;
-}
+function divide(arr, i = arr.length) {
+    let a = arr[i - 1];
+    if (i == 1) {
+        return a;
+    }
 
-function divide(a, b) {
-    return a / b;
+    return divide(arr, --i) / a;
 }
 
 buttons.forEach(function(btn) {
     btn.addEventListener('click', input)
 })
+
+function findOperation(arr) {
+    arr.forEach()
+}
+
+// function doMath(operation, a, b) {
+//     if (operation )
+// }
+
+
+// M D A S
+// 3 + 5 * 4 / 2 - 1
+//subtract(add(divide(multiply())))
