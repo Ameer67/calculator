@@ -10,6 +10,9 @@ function input() {
     // Check if enter button was pressed.
     if (inputValue == 'enter') {
         event.preventDefault();
+        if (inputArray.length > 2) {
+            simplify();
+        }
         return inputArray;
     }
     
