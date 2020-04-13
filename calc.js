@@ -15,7 +15,7 @@ function input() {
     
     // Check if clear button was pressed.
     if (inputValue == 'c') {
-        inputArray = [];
+        clearInput();
         updateDisplay();
         return inputArray;
     }
@@ -83,6 +83,10 @@ function input() {
     return inputArray;
 }
 
+function clearInput() {
+    inputArray = [];
+}
+
 function updateDisplay(){
     const display = document.getElementById('answer-container');
     display.textContent = ''; // Clear 
@@ -145,7 +149,7 @@ buttons.forEach(function(btn) {
 })
 
 function simplify() {    
-    while (inputArray.length > 1) {
+    while (inputArray.length > 2) {
         operationToFind('*');
         operationToFind('/');
         operationToFind('+');
@@ -157,8 +161,10 @@ function simplify() {
     }
 
     updateDisplay();
+    clearInput();
     return inputArray;
 }
+
 
 
 function operationToFind(operation) {
