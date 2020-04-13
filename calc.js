@@ -41,7 +41,7 @@ function input() {
     // Check if . dot was pressed
     if (inputValue == '.') {
         if (inputArray.length == 0 || isNumber(inputArray[inputArray.length - 1]) == false) {
-            inputArray.push(inputValue);
+            inputArray.push(0 + inputValue);
         } else {
             if (isNumber(inputArray[inputArray.length - 1]) && foundDot(inputArray[inputArray.length - 1]) == false) {
                 inputArray[inputArray.length - 1] += inputValue;
