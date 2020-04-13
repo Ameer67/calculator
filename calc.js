@@ -1,16 +1,19 @@
-document.addEventListener('keypress', input);
-
 const calculator = document.getElementById('calculator');
 const buttons = Array.from(document.getElementsByTagName('button'));
+
+document.addEventListener('keypress', input);
+buttons.forEach(function(btn) {
+    btn.addEventListener('click', input)
+})
 
 let inputArray = [];
 
 function input() {
     // Check if on-screen button was pressed or keyboard
-    const inputValue = event.type == 'keypress' ? event.key : event.target.value;
+    const inputValue = event.type == 'keypress' ? event.key.toLowerCase() : event.target.value;
         
     // Check if enter button was pressed.
-    if (inputValue == 'Enter') {
+    if (inputValue == 'enter') {
         event.preventDefault();
         if (inputArray.length > 2) {
             simplify();
@@ -149,9 +152,7 @@ function divide(arr, i = arr.length) {
     return divide(arr, --i) / a;
 }
 
-buttons.forEach(function(btn) {
-    btn.addEventListener('click', input)
-})
+
 
 function simplify() {    
     while (inputArray.length > 2) {
