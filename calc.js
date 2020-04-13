@@ -28,14 +28,8 @@ function input() {
         return inputArray;
     }
 
-    function foundDot(arrayIndex) {
-        for (let i = 0; i < arrayIndex.length; i++) {
-            if (arrayIndex[i] == '.') {
-                return true;
-            }
-        }
-
-        return false;
+    function foundDot(arrayElement) {
+        return /\./.test(arrayElement);
     }
 
     // Check if . dot was pressed
