@@ -161,6 +161,8 @@ function simplify() {
 
     if (inputArray[0] === Infinity) {
         inputArray = ['Cannot divide by zero'];
+    } else {
+        inputArray[0] = parseFloat(inputArray[0].toPrecision(7));
     }
 
     updateDisplay();
