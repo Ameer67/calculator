@@ -1,14 +1,16 @@
+document.addEventListener('keypress', input);
+
 const calculator = document.getElementById('calculator');
 const buttons = Array.from(document.getElementsByTagName('button'));
 
 let inputArray = [];
 
 function input() {
-    let inputValue = event.target.value;
-    console.log(inputValue);
-
+    // Check if on-screen button was pressed or keyboard
+    const inputValue = event.type == 'keypress' ? event.key : event.target.value;
+        
     // Check if enter button was pressed.
-    if (inputValue == 'enter') {
+    if (inputValue == 'Enter') {
         event.preventDefault();
         if (inputArray.length > 2) {
             simplify();
@@ -48,14 +50,12 @@ function input() {
     }
 
     function isNumber(a) {
-        if (a != '/' && a != '*' && a != '-' && a != '+' && a != 'c'&& a != 'enter') {
-            return true;
-        } else {
-            return false;
-        }
+        return /[\d]/.test(a);
     }
 
-    
+    function isOperation(a) {
+        return /[\/\*\+\-]/.test(a);
+    }
     
     if (inputArray.length == 0 ) {
         if (isNumber(inputValue)) {
@@ -72,7 +72,9 @@ function input() {
         
         /* If previous is not a number, then either push 
         it to the array or replace previous. */
-        } else {
+        } 
+        //if (isOperation())
+        else {
             if (isNumber(inputValue)) {
                 inputArray.push(inputValue);
             } else {
