@@ -132,8 +132,16 @@ function operationToFind(operation) {
     }
 }
 
-function answer() {    
-    while (inputArray.length > 2 && inputArray[inputArray.length -1]) { // FINISH THIS!!!!!!!!!!!!!
+function removeExtraOperations() {
+    inputArray.pop();
+}
+
+function answer() { 
+    if (isOperation(inputArray[inputArray.length -1])) {
+        removeExtraOperations();
+    }
+
+    while (inputArray.length > 2) {
         operationToFind('*');
         operationToFind('/');
         operationToFind('+');
