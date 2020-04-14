@@ -9,28 +9,13 @@ buttons.forEach(function(btn) {
 let inputArray = [];
 
 function input() {
+    // Check if on-screen button was pressed or keyboard
+    const inputValue = event.type == 'keypress' ? event.key.toLowerCase() : event.target.value;
     const previousElementIndex = inputArray.length - 1;
     let previousElement = inputArray[previousElementIndex];
 
-    // Check if on-screen button was pressed or keyboard
-    const inputValue = event.type == 'keypress' ? event.key.toLowerCase() : event.target.value;
-
-    function foundDot(arrayElement) {
+    function hasDot(arrayElement) {
         return /\./.test(arrayElement);
-    }
-
-    // Check if . dot was pressed
-    if (inputValue == '.') {
-        if (inputArray.length == 0 || isNumber(inputArray[inputArray.length - 1]) == false) {
-            inputArray.push(0 + inputValue);
-        } else {
-            if (isNumber(inputArray[inputArray.length - 1]) && foundDot(inputArray[inputArray.length - 1]) == false) {
-                inputArray[inputArray.length - 1] += inputValue;
-            }
-        }
-
-        updateDisplay();
-        return inputArray;
     }
 
     function isNumber(a) {
@@ -53,8 +38,6 @@ function input() {
     // Check if clear button was pressed.
     if (inputValue == 'c') {
         clearInput();
-        updateDisplay();
-        return;
     }
 
     // Check if input is number
@@ -66,8 +49,22 @@ function input() {
     
     // Check if input is operation +-*/
     if (isOperation(inputValue)) {
+        if (hasDot(previousElement[previousElement.length - 1])) {
+            inputArray[previousElementIndex] += 0;
+        }
         isNumber(previousElement) ? 
             inputArray.push(inputValue) : inputArray[previousElementIndex] = inputValue;
+    }
+
+    // Check if . dot was pressed
+    if (inputValue == '.') {
+        if (inputArray.length == 0 || !isNumber(previousElement)) {
+            inputArray.push(0 + inputValue);
+        } else {
+            if (isNumber(previousElement) && !hasDot(previousElement)) {
+                inputArray[previousElementIndex] += inputValue;
+            }
+        }
     }
 
     console.log(inputArray);
