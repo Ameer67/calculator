@@ -14,22 +14,6 @@ function input() {
 
     // Check if on-screen button was pressed or keyboard
     const inputValue = event.type == 'keypress' ? event.key.toLowerCase() : event.target.value;
-        
-    // Check if enter button was pressed.
-    if (inputValue == 'enter') {
-        event.preventDefault();
-        if (inputArray.length > 2) {
-            simplify();
-        }
-        return inputArray;
-    }
-    
-    // Check if clear button was pressed.
-    if (inputValue == 'c') {
-        clearInput();
-        updateDisplay();
-        return inputArray;
-    }
 
     function foundDot(arrayElement) {
         return /\./.test(arrayElement);
@@ -57,6 +41,21 @@ function input() {
         return /[\/\*\+\-]/.test(a);
     }
 
+    // Check if enter button was pressed.
+    if (inputValue == 'enter') {
+        event.preventDefault();
+        if (inputArray.length > 2) {
+            simplify();
+        }
+        return;
+    }
+    
+    // Check if clear button was pressed.
+    if (inputValue == 'c') {
+        clearInput();
+        updateDisplay();
+        return;
+    }
 
     // Check if input is number
     if (isNumber(inputValue)) {
