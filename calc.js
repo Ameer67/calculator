@@ -66,9 +66,7 @@ function input() {
     return inputArray;
 }
 
-function clearInput() {
-    inputArray = [];
-}
+clearInput = () => inputArray = [];
 
 function updateDisplay(){
     const display = document.getElementById('answer-container');
