@@ -14,17 +14,11 @@ function input() {
     const previousElementIndex = inputArray.length - 1;
     let previousElement = inputArray[previousElementIndex];
 
-    function hasDot(arrayElement) {
-        return /\./.test(arrayElement);
-    }
+    hasDot = arrayElement => /\./.test(arrayElement);
 
-    function isNumber(a) {
-        return /[\d]/.test(a);
-    }
+    isNumber = a => /[\d]/.test(a);
 
-    function isOperation(a) {
-        return /[\/\*\+\-]/.test(a);
-    }
+    isOperation = a => /[\/\*\+\-]/.test(a);
 
     // Check if enter button was pressed.
     if (inputValue == 'enter') {
