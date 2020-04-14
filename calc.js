@@ -14,17 +14,11 @@ function input() {
     const previousElementIndex = inputArray.length - 1;
     let previousElement = inputArray[previousElementIndex];
 
-    hasDot = arrayElement => /\./.test(arrayElement);
-
-    isNumber = a => /[\d]/.test(a);
-
-    isOperation = a => /[\/\*\+\-]/.test(a);
-
     // Check if enter button was pressed.
     if (inputValue == 'enter') {
         event.preventDefault();
         if (inputArray.length > 2) {
-            simplify();
+            answer();
         }
         return;
     }
@@ -66,30 +60,15 @@ function input() {
     return inputArray;
 }
 
+hasDot = arrayElement => /\./.test(arrayElement);
+
+isNumber = a => /[\d]/.test(a);
+
+isOperation = a => /[\/\*\+\-]/.test(a);
+
 clearInput = () => inputArray = [];
 
-function updateDisplay(){
-    const display = document.getElementById('answer-container');
-    display.textContent = ''; // Clear 
-
-    inputArray.forEach(function(value) {
-        if (value == '*') {
-            value = '\u00D7';
-        }
-
-        if (value == '/') {
-            value = '\u00F7';
-        }
-
-        if (value == '-') {
-            value = '\u2212';
-        }
-
-        display.textContent += value + ' ';
-    });
-}
-
-function add(arr, i = 0) {
+add = (arr, i = 0) => {
     let a = arr[i];
     if (i >= arr.length - 1) {
         return a;
@@ -98,7 +77,7 @@ function add(arr, i = 0) {
     return a + add(arr, ++i);
 }
 
-function subtract(arr, i = arr.length) {
+subtract = (arr, i = arr.length) => {
     let a = arr[i - 1];
     if (i == 1) {
         return a;
@@ -107,7 +86,7 @@ function subtract(arr, i = arr.length) {
     return subtract(arr, --i) - a;
 }
 
-function multiply(arr, i = 0) {
+multiply = (arr, i = 0) => {
     let a = arr[i];
     if (i >= arr.length - 1) {
         return a;
@@ -116,7 +95,7 @@ function multiply(arr, i = 0) {
     return a * multiply(arr, ++i);
 }
 
-function divide(arr, i = arr.length) {
+divide = (arr, i = arr.length) => {
     let a = arr[i - 1];
     if (i == 1) {
         return a;
@@ -124,29 +103,6 @@ function divide(arr, i = arr.length) {
 
     return divide(arr, --i) / a;
 }
-
-
-
-function simplify() {    
-    while (inputArray.length > 2) {
-        operationToFind('*');
-        operationToFind('/');
-        operationToFind('+');
-        operationToFind('-');
-    }
-
-    if (inputArray[0] === Infinity) {
-        inputArray = ['Cannot divide by zero'];
-    } else {
-        inputArray[0] = parseFloat(inputArray[0].toPrecision(15));
-    }
-
-    updateDisplay();
-    clearInput();
-    return inputArray;
-}
-
-
 
 function operationToFind(operation) {
     for (let i = 0; i < inputArray.length; i++) {
@@ -175,3 +131,43 @@ function operationToFind(operation) {
         }
     }
 }
+
+function answer() {    
+    while (inputArray.length > 2 && inputArray[inputArray.length -1]) { // FINISH THIS!!!!!!!!!!!!!
+        operationToFind('*');
+        operationToFind('/');
+        operationToFind('+');
+        operationToFind('-');
+    }
+
+    inputArray[0] === Infinity ? 
+        inputArray = ['Cannot divide by zero'] : 
+        inputArray[0] = parseFloat(inputArray[0].toPrecision(15));
+
+    updateDisplay();
+    //clearInput();
+    return inputArray;
+}
+
+
+function updateDisplay(){
+    const display = document.getElementById('answer-container');
+    display.textContent = ''; // Clear 
+
+    inputArray.forEach(function(value) {
+        if (value == '*') {
+            value = '\u00D7';
+        }
+
+        if (value == '/') {
+            value = '\u00F7';
+        }
+
+        if (value == '-') {
+            value = '\u2212';
+        }
+
+        display.textContent += value + ' ';
+    });
+}
+
