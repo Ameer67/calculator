@@ -9,6 +9,9 @@ buttons.forEach(function(btn) {
 let inputArray = [];
 
 function input() {
+    const previousElementIndex = inputArray.length - 1;
+    let previousElement = inputArray[previousElementIndex];
+
     // Check if on-screen button was pressed or keyboard
     const inputValue = event.type == 'keypress' ? event.key.toLowerCase() : event.target.value;
         
@@ -53,31 +56,19 @@ function input() {
     function isOperation(a) {
         return /[\/\*\+\-]/.test(a);
     }
+
+
+    // Check if input is number
+    if (isNumber(inputValue)) {
+        inputArray.length == 0 || isOperation(previousElement) ? 
+            inputArray.push(inputValue) :
+            inputArray[previousElementIndex] += inputValue;
+    }
     
-    if (inputArray.length == 0 ) {
-        if (isNumber(inputValue)) {
-            inputArray.push(inputValue);
-        }
-    } else {
-        // Check if previous value is number
-        if (isNumber(inputArray[inputArray.length - 1])) {
-            if (isNumber(inputValue)) {
-                inputArray[inputArray.length - 1] += inputValue;
-            } else {
-                inputArray.push(inputValue);
-            }
-        
-        /* If previous is not a number, then either push 
-        it to the array or replace previous. */
-        } 
-        //if (isOperation())
-        else {
-            if (isNumber(inputValue)) {
-                inputArray.push(inputValue);
-            } else {
-                inputArray[inputArray.length - 1] = inputValue;
-            }
-        }
+    // Check if input is operation +-*/
+    if (isOperation(inputValue)) {
+        isNumber(previousElement) ? 
+            inputArray.push(inputValue) : inputArray[previousElementIndex] = inputValue;
     }
 
     console.log(inputArray);
