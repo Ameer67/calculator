@@ -35,7 +35,11 @@ function input() {
             inputArray[previousElementIndex] = inputValue;
         }
     }
-    
+
+
+    /* Undefine answer variable (if it is defined) since either an operator 
+    has already been applied to inputArray or we will be typing a number
+    after the answer has been given */
     if (answer != undefined) {
         answer = undefined;
         clearInput();
@@ -150,6 +154,8 @@ function removeExtraOperations() {
 }
 
 function getAnswer() { 
+    /* Check if there's an operator at the end. Example: 4 * 5 +
+    Will remove the + sign */
     if (isOperation(inputArray[inputArray.length -1])) {
         removeExtraOperations();
     }
@@ -162,38 +168,36 @@ function getAnswer() {
     }
     
     inputArray[0] = parseFloat(inputArray[0].toPrecision(15));
-
     answer = inputArray[0];
     updateDisplay(answer);
-    //clearInput();
-    return true;
+
+    return;
 }
 
 
 function updateDisplay(){
     const display = document.getElementById('answer-container');
     display.textContent = ''; // Clear 
+
     if (arguments.length == 1) {
-        if (arguments[0] === Infinity) {
+        isFinite(arguments[0]) ? 
+            display.textContent = arguments[0] : 
             display.textContent = 'Cannot divide by zero!';
-        } else {
-            display.textContent = arguments[0];
-        }
     } else {
-        inputArray.forEach(function(value) {
-            if (value == '*') {
-                value = '\u00D7';
+        inputArray.forEach((element) => {
+            switch (element) {
+                case '*':
+                    element = '\u00D7';
+                    break;
+                case '/':
+                    element = '\u00F7';
+                    break;
+                case '-':
+                    element = '\u2212'
+                    break;
             }
     
-            if (value == '/') {
-                value = '\u00F7';
-            }
-    
-            if (value == '-') {
-                value = '\u2212';
-            }
-    
-            display.textContent += value + ' ';
+            display.textContent += element + ' ';
         });
     }
 }
