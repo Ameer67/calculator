@@ -83,7 +83,6 @@ isOperation = a => /[\/\*\+\-]/.test(a);
 
 clearInput = () => inputArray = [];
 
-
 multiply = (arr, i = 0) => {
     let a = arr[i];
     if (i >= arr.length - 1) {
@@ -171,6 +170,10 @@ function getAnswer() {
 function updateDisplay(){
     const display = document.getElementById('answer-container');
     display.textContent = ''; // Clear 
+
+    if (inputArray.length == 0) {
+        display.textContent = '0';
+    }
 
     if (arguments.length == 1) {
         isFinite(arguments[0]) ? 
