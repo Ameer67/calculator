@@ -36,7 +36,6 @@ function input() {
         }
     }
 
-
     /* Undefine answer variable (if it is defined) since either an operator 
     has already been applied to inputArray or we will be typing a number
     after the answer has been given */
@@ -72,7 +71,6 @@ function input() {
         }
     }    
 
-    console.log(inputArray);
     updateDisplay();
     return inputArray;
 }
@@ -160,11 +158,8 @@ function getAnswer() {
         removeExtraOperations();
     }
 
-    while (inputArray.length > 2) {
-        operationToFind('*');
-        operationToFind('/');
-        operationToFind('+');
-        operationToFind('-');
+    if (inputArray.length > 2) {
+        ['*', '/', '+', '-'].forEach((operator) => operationToFind(operator))
     }
     
     inputArray[0] = parseFloat(inputArray[0].toPrecision(15));
