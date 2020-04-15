@@ -128,11 +128,9 @@ function operationToFind(operation) {
             
             // Push the operands to newArr
             newArr.push(parseFloat(inputArray.splice(i - 1, 1)), parseFloat(inputArray.splice(i, 1)));
-            console.log(inputArray);
+
             // Remove operator symbol from inputArray
             inputArray.splice(i - 1, 1);
-            console.log(inputArray);
-            console.log(newArr);
 
             const operators = {
                 '*': multiply(newArr), 
