@@ -7,6 +7,7 @@ buttons.forEach(function(btn) {
 })
 
 let inputArray = [];
+let answer;
 
 function input() {
     // Check if on-screen button was pressed or keyboard
@@ -14,18 +15,39 @@ function input() {
     const previousElementIndex = inputArray.length - 1;
     let previousElement = inputArray[previousElementIndex];
 
+    // Check if clear button was pressed.
+    if (inputValue == 'c') {
+        clearInput();
+    }
+
+    // Check if input is operation +-*/
+    if (isOperation(inputValue) && (answer != undefined || inputArray.length > 0)) {
+        // Check if previous element ends with a dot, if it does, add 0 after dot
+        if (hasDot(previousElement[previousElement.length - 1])) {
+            inputArray[previousElementIndex] += 0;
+        }
+
+        // Now check if previous element is a number
+        if (isNumber(previousElement)) { 
+            answer = undefined;
+            inputArray.push(inputValue);
+        } else { 
+            inputArray[previousElementIndex] = inputValue;
+        }
+    }
+    
+    if (answer != undefined) {
+        answer = undefined;
+        clearInput();
+    }
+    
     // Check if enter button was pressed.
     if (inputValue == 'enter') {
         event.preventDefault();
         if (inputArray.length > 2) {
-            answer();
+            getAnswer();
         }
         return;
-    }
-    
-    // Check if clear button was pressed.
-    if (inputValue == 'c') {
-        clearInput();
     }
 
     // Check if input is number
@@ -33,15 +55,6 @@ function input() {
         inputArray.length == 0 || isOperation(previousElement) ? 
             inputArray.push(inputValue) :
             inputArray[previousElementIndex] += inputValue;
-    }
-    
-    // Check if input is operation +-*/
-    if (isOperation(inputValue)) {
-        if (hasDot(previousElement[previousElement.length - 1])) {
-            inputArray[previousElementIndex] += 0;
-        }
-        isNumber(previousElement) ? 
-            inputArray.push(inputValue) : inputArray[previousElementIndex] = inputValue;
     }
 
     // Check if . dot was pressed
@@ -53,7 +66,7 @@ function input() {
                 inputArray[previousElementIndex] += inputValue;
             }
         }
-    }
+    }    
 
     console.log(inputArray);
     updateDisplay();
@@ -136,7 +149,7 @@ function removeExtraOperations() {
     inputArray.pop();
 }
 
-function answer() { 
+function getAnswer() { 
     if (isOperation(inputArray[inputArray.length -1])) {
         removeExtraOperations();
     }
@@ -147,35 +160,41 @@ function answer() {
         operationToFind('+');
         operationToFind('-');
     }
+    
+    inputArray[0] = parseFloat(inputArray[0].toPrecision(15));
 
-    inputArray[0] === Infinity ? 
-        inputArray = ['Cannot divide by zero'] : 
-        inputArray[0] = parseFloat(inputArray[0].toPrecision(15));
-
-    updateDisplay();
+    answer = inputArray[0];
+    updateDisplay(answer);
     //clearInput();
-    return inputArray;
+    return true;
 }
 
 
 function updateDisplay(){
     const display = document.getElementById('answer-container');
     display.textContent = ''; // Clear 
-
-    inputArray.forEach(function(value) {
-        if (value == '*') {
-            value = '\u00D7';
+    if (arguments.length == 1) {
+        if (arguments[0] === Infinity) {
+            display.textContent = 'Cannot divide by zero!';
+        } else {
+            display.textContent = arguments[0];
         }
-
-        if (value == '/') {
-            value = '\u00F7';
-        }
-
-        if (value == '-') {
-            value = '\u2212';
-        }
-
-        display.textContent += value + ' ';
-    });
+    } else {
+        inputArray.forEach(function(value) {
+            if (value == '*') {
+                value = '\u00D7';
+            }
+    
+            if (value == '/') {
+                value = '\u00F7';
+            }
+    
+            if (value == '-') {
+                value = '\u2212';
+            }
+    
+            display.textContent += value + ' ';
+        });
+    }
 }
 
