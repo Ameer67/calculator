@@ -83,23 +83,6 @@ isOperation = a => /[\/\*\+\-]/.test(a);
 
 clearInput = () => inputArray = [];
 
-add = (arr, i = 0) => {
-    let a = arr[i];
-    if (i >= arr.length - 1) {
-        return a;
-    }
-
-    return a + add(arr, ++i);
-}
-
-subtract = (arr, i = arr.length) => {
-    let a = arr[i - 1];
-    if (i == 1) {
-        return a;
-    }
-
-    return subtract(arr, --i) - a;
-}
 
 multiply = (arr, i = 0) => {
     let a = arr[i];
@@ -119,30 +102,47 @@ divide = (arr, i = arr.length) => {
     return divide(arr, --i) / a;
 }
 
+add = (arr, i = 0) => {
+    let a = arr[i];
+    if (i >= arr.length - 1) {
+        return a;
+    }
+
+    return a + add(arr, ++i);
+}
+
+subtract = (arr, i = arr.length) => {
+    let a = arr[i - 1];
+    if (i == 1) {
+        return a;
+    }
+
+    return subtract(arr, --i) - a;
+}
+
 function operationToFind(operation) {
     for (let i = 0; i < inputArray.length; i++) {
         let newArr = [];
+
         if (inputArray[i] === operation) {
-            newArr.push(parseFloat(inputArray.splice(i - 1, 1)));
-            newArr.push(parseFloat(inputArray.splice(i, 1)));
-            inputArray.splice(i - 1, 1);
-    
-            if (operation === '*') {
-                inputArray.splice(i - 1, 0, multiply(newArr));
-            }
-
-            if (operation === '/') {
-                inputArray.splice(i - 1, 0, divide(newArr));
-            }
-
-            if (operation === '+') {
-                inputArray.splice(i - 1, 0, add(newArr));
-            }
-
-            if (operation === '-') {
-                inputArray.splice(i - 1, 0, subtract(newArr));
-            }
             
+            // Push the operands to newArr
+            newArr.push(parseFloat(inputArray.splice(i - 1, 1)), parseFloat(inputArray.splice(i, 1)));
+            console.log(inputArray);
+            // Remove operator symbol from inputArray
+            inputArray.splice(i - 1, 1);
+            console.log(inputArray);
+            console.log(newArr);
+
+            const operators = {
+                '*': multiply(newArr), 
+                '/': divide(newArr), 
+                '+': add(newArr), 
+                '-': subtract(newArr),
+            }
+
+            // Replace the spot that the operand took and fill it with the answer of that operation
+            inputArray.splice(i - 1, 0, operators[operation]);
         }
     }
 }
