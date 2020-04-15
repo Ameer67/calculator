@@ -81,7 +81,7 @@ isNumber = a => /[\d]/.test(a);
 
 isOperation = a => /[\/\*\+\-]/.test(a);
 
-clearInput = () => inputArray = [0];
+clearInput = () => inputArray = [];
 
 
 multiply = (arr, i = 0) => {
