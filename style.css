@@ -63,7 +63,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
+	min-height: 100vh;
 }
 
 #calculator {
@@ -72,7 +72,7 @@ body {
 	width: 100%;
 	grid: repeat(5, 1fr) / repeat(4, 1fr);
 	gap: .5rem;
-	padding: 0 .25rem 0 .25rem;
+	padding: .25rem;
 }
 
 #answer-container {
