@@ -196,5 +196,16 @@ function updateDisplay(){
             display.textContent += element + ' ';
         });
     }
+
+    const initialFontSize = 45;
+    let textLength = display.textContent.length;
+    
+    if (textLength >= 15 && textLength < 25) {
+        display.style.fontSize = `${initialFontSize - (textLength - 5)}px`;
+    } else if (textLength >= 25){
+        display.style.fontSize = `${initialFontSize - 25}px`;
+    } else {
+        display.style.fontSize = `${initialFontSize}px`;
+    }
 }
 
